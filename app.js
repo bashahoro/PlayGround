@@ -13,6 +13,7 @@
   const positionNames = ['Top left', 'Top center', 'Top right', 'Middle left', 'Center', 'Middle right', 'Bottom left', 'Bottom center', 'Bottom right'];
   const wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
   let board = Array(9).fill('');
+  let focusedIndex = 0;
   let current = 'X';
   let mode = 'friend';
   let gameOver = false;
@@ -64,8 +65,14 @@
       cell.classList.toggle('mark-o', mark === 'O');
       cell.classList.toggle('winner', winningLine.includes(index));
       cell.disabled = Boolean(mark) || gameOver || (mode === 'computer' && current === 'O');
+      cell.tabIndex = index === focusedIndex ? 0 : -1;
       cell.setAttribute('aria-label', `${positionNames[index]}, ${mark ? `${mark}` : 'empty'}${winningLine.includes(index) ? ', part of winning line' : ''}`);
     });
+    const nextAvailable = cells.findIndex(cell => !cell.disabled);
+    if (cells[focusedIndex].disabled && nextAvailable !== -1) {
+      focusedIndex = nextAvailable;
+      cells[focusedIndex].focus();
+    }
   }
 
   function lineFor(position) {
@@ -185,7 +192,29 @@
     paintBoard();
   }
 
-  cells.forEach((cell, index) => cell.addEventListener('click', () => makeMove(index)));
+  cells.forEach((cell, index) => {
+    cell.addEventListener('click', () => {
+      focusedIndex = index;
+      makeMove(index);
+    });
+    cell.addEventListener('keydown', event => {
+      const moves = { ArrowUp: -3, ArrowDown: 3, ArrowLeft: -1, ArrowRight: 1 };
+      let target = index;
+      if (event.key === 'Home') target = 0;
+      else if (event.key === 'End') target = 8;
+      else if (moves[event.key]) {
+        const candidate = index + moves[event.key];
+        if (candidate < 0 || candidate > 8 || (event.key === 'ArrowLeft' && index % 3 === 0) || (event.key === 'ArrowRight' && index % 3 === 2)) return;
+        target = candidate;
+      } else return;
+      event.preventDefault();
+      const step = event.key === 'Home' ? 1 : event.key === 'End' ? -1 : moves[event.key];
+      while (target >= 0 && target <= 8 && cells[target].disabled) target += step;
+      if (target < 0 || target > 8) return;
+      focusedIndex = target;
+      cells[target].focus();
+    });
+  });
   modeButtons.forEach(button => button.addEventListener('click', () => {
     if (mode === button.dataset.mode) return;
     mode = button.dataset.mode;

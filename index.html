@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#fbf6f1">
   <meta name="description" content="A cozy little game of tic-tac-toe. Challenge a friend or play against the computer.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <title>Tiny Wins — Tic-Tac-Toe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,16 +50,16 @@
         </div>
 
         <div class="board-wrap">
-          <div class="board" id="board" role="grid" aria-label="Tic-tac-toe board">
-            <button class="cell" type="button" role="gridcell" data-index="0" aria-label="Top left, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="1" aria-label="Top center, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="2" aria-label="Top right, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="3" aria-label="Middle left, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="4" aria-label="Center, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="5" aria-label="Middle right, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="6" aria-label="Bottom left, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="7" aria-label="Bottom center, empty"></button>
-            <button class="cell" type="button" role="gridcell" data-index="8" aria-label="Bottom right, empty"></button>
+          <div class="board" id="board" role="group" aria-label="Tic-tac-toe board. Use the arrow keys to move between squares.">
+            <button class="cell" type="button" data-index="0" aria-label="Top left, empty" tabindex="0"></button>
+            <button class="cell" type="button" data-index="1" aria-label="Top center, empty" tabindex="-1"></button>
+            <button class="cell" type="button" data-index="2" aria-label="Top right, empty" tabindex="-1"></button>
+            <button class="cell" type="button" data-index="3" aria-label="Middle left, empty" tabindex="-1"></button>
+            <button class="cell" type="button" data-index="4" aria-label="Center, empty" tabindex="-1"></button>
+            <button class="cell" type="button" data-index="5" aria-label="Middle right, empty" tabindex="-1"></button>
+            <button class="cell" type="button" data-index="6" aria-label="Bottom left, empty" tabindex="-1"></button>
+            <button class="cell" type="button" data-index="7" aria-label="Bottom center, empty" tabindex="-1"></button>
+            <button class="cell" type="button" data-index="8" aria-label="Bottom right, empty" tabindex="-1"></button>
           </div>
         </div>
 
