@@ -16,3 +16,7 @@
 - 👤 [Explore the creator's projects](https://go.ondev.store/bashahoro).
 - 🌍 [Create with OMGithub](https://go.ondev.store/).
 <!-- omgithub:readme:end -->
+
+## Install on your phone
+
+World 1-1 is a Progressive Web App (PWA): open its live site over **HTTPS** on your phone, then use **Install app** in the game or your browser menu. On iPhone/iPad, open the site in Safari, tap **Share**, then **Add to Home Screen**. Once installed, the game opens as an app and its core files are available offline. The install option requires the site to be served from HTTPS (or localhost during development).
