@@ -10,7 +10,7 @@
   const xName = document.getElementById('x-name');
   const oName = document.getElementById('o-name');
   const soundToggle = document.getElementById('sound-toggle');
-  const positionNames = ['Top left', 'Top center', 'Top right', 'Middle left', 'Center', 'Middle right', 'Bottom left', 'Bottom center', 'Bottom right'];
+  const positionNames = ['أعلى اليمين', 'أعلى الوسط', 'أعلى اليسار', 'الوسط يمين', 'الوسط', 'الوسط يسار', 'أسفل اليمين', 'أسفل الوسط', 'أسفل اليسار'];
   const wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
   let board = Array(9).fill('');
   let current = 'X';
@@ -28,13 +28,13 @@
   function renderScores() {
     xScore.textContent = scores.X;
     oScore.textContent = scores.O;
-    drawScore.textContent = `${scores.draws} ${scores.draws === 1 ? 'draw' : 'draws'}`;
+    drawScore.textContent = `تعادل ${scores.draws}`;
     try { localStorage.setItem('tiny-wins-score', JSON.stringify(scores)); } catch (_) { /* Scores still work for this session. */ }
   }
 
   function updatePlayerNames() {
-    xName.textContent = mode === 'computer' ? 'You' : 'Player X';
-    oName.textContent = mode === 'computer' ? 'Computer' : 'Player O';
+    xName.textContent = mode === 'computer' ? 'أنت' : 'اللاعب X';
+    oName.textContent = mode === 'computer' ? 'الكمبيوتر' : 'اللاعب O';
   }
 
   function updateStatus(message, sub = '') {
@@ -52,8 +52,8 @@
   }
 
   function playerLabel(mark) {
-    if (mode === 'computer') return mark === 'X' ? 'You' : 'Computer';
-    return `Player ${mark}`;
+    if (mode === 'computer') return mark === 'X' ? 'أنت' : 'الكمبيوتر';
+    return `اللاعب ${mark}`;
   }
 
   function paintBoard(winningLine = []) {
@@ -64,7 +64,8 @@
       cell.classList.toggle('mark-o', mark === 'O');
       cell.classList.toggle('winner', winningLine.includes(index));
       cell.disabled = Boolean(mark) || gameOver || (mode === 'computer' && current === 'O');
-      cell.setAttribute('aria-label', `${positionNames[index]}, ${mark ? `${mark}` : 'empty'}${winningLine.includes(index) ? ', part of winning line' : ''}`);
+      const accessibleMark = mark === 'X' ? 'إكس' : mark === 'O' ? 'أو' : 'فارغة';
+      cell.setAttribute('aria-label', `${positionNames[index]}، ${accessibleMark}${winningLine.includes(index) ? '، جزء من خط الفوز' : ''}`);
     });
   }
 
@@ -97,14 +98,14 @@
       renderScores();
       paintBoard(winningLine);
       const winner = playerLabel(current);
-      updateStatus(mode === 'computer' && current === 'X' ? 'You win!' : `${winner} wins!`, 'Three in a row!');
+      updateStatus(mode === 'computer' && current === 'X' ? 'أحسنت! فزت' : `فاز ${winner}!`, 'ثلاثة على التوالي!');
       document.querySelector('.turn-status').classList.add('is-result');
       playSound('win');
     } else {
       scores.draws += 1;
       renderScores();
       paintBoard();
-      updateStatus('It’s a draw!', 'A lovely match');
+      updateStatus('تعادلنا!', 'مباراة جميلة');
       document.querySelector('.turn-status').classList.add('is-result');
       playSound('draw');
     }
@@ -122,7 +123,7 @@
     current = current === 'X' ? 'O' : 'X';
     document.querySelector('.turn-status').classList.remove('is-result');
     if (mode === 'computer' && current === 'O') {
-      updateStatus('Computer’s turn', 'Thinking…');
+      updateStatus('دور الكمبيوتر', 'يفكر...');
       paintBoard();
       computerTimer = window.setTimeout(() => {
         computerTimer = null;
@@ -130,8 +131,8 @@
         makeMove(bestMove(board));
       }, 420);
     } else {
-      const label = mode === 'computer' ? 'Your turn' : `${current}'s turn`;
-      updateStatus(label, 'Make your move');
+      const label = mode === 'computer' ? 'دورك الآن' : `دور ${current}`;
+      updateStatus(label, 'اختر خانتك');
       paintBoard();
     }
   }
@@ -181,7 +182,7 @@
     current = 'X';
     gameOver = false;
     document.querySelector('.turn-status').classList.remove('is-result');
-    updateStatus(mode === 'computer' ? 'Your turn' : 'X’s turn', 'Make your move');
+    updateStatus(mode === 'computer' ? 'دورك الآن' : 'دور X', 'اختر خانتك');
     paintBoard();
   }
 
@@ -205,12 +206,12 @@
   soundToggle.addEventListener('click', () => {
     soundEnabled = !soundEnabled;
     soundToggle.setAttribute('aria-pressed', String(soundEnabled));
-    soundToggle.setAttribute('aria-label', soundEnabled ? 'Turn sound off' : 'Turn sound on');
+    soundToggle.setAttribute('aria-label', soundEnabled ? 'إيقاف الصوت' : 'تشغيل الصوت');
     if (soundEnabled) playSound('move');
   });
 
   updatePlayerNames();
   renderScores();
-  updateStatus('X’s turn', 'Make your move');
+  updateStatus('دور X', 'اختر خانتك');
   paintBoard();
 })();

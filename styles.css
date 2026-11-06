@@ -169,3 +169,100 @@ h1 em { color: var(--rose); font-weight: 600; }
   .page-footer { letter-spacing: .1em; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+:root {
+  font-family: 'Cairo', 'DM Sans', sans-serif;
+  --ink: #38312f;
+  --muted: #9c8b83;
+}
+
+body { direction: rtl; }
+.brand-name { font-family: 'Cairo', sans-serif; font-size: 19px; letter-spacing: 0; }
+h1 { font-family: 'Cairo', sans-serif; font-size: clamp(40px, 5vw, 54px); line-height: 1.15; letter-spacing: 0; font-weight: 800; }
+h1 em { font-style: normal; unicode-bidi: isolate; direction: ltr; display: inline-block; }
+.intro { line-height: 1.8; }
+.eyebrow { letter-spacing: .04em; font-size: 10px; }
+.mode-button { font-family: inherit; font-size: 12px; }
+.turn-status { font-family: inherit; }
+.score-label, .score-divider small, .game-actions button { font-family: inherit; }
+.score-item { grid-template-columns: auto 19px; text-align: right; }
+.score-symbol { grid-column: 2; grid-row: 1 / 3; }
+.score-label { grid-column: 1; grid-row: 1; }
+.score-item strong { grid-column: 1; grid-row: 2; }
+.game-actions { direction: rtl; }
+.side-column { direction: rtl; }
+.photo-card.game-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 31px 25px 0;
+  background: linear-gradient(160deg, #fffdfa 0%, #f5e8df 100%);
+}
+.game-card::after {
+  content: 'روح هورو';
+  position: absolute;
+  top: 17px;
+  color: #b8a69b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+.mini-board {
+  width: 218px;
+  height: 218px;
+  margin-top: 37px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 7px;
+  direction: ltr;
+  border: 1px solid #e8d8ce;
+  border-radius: 22px;
+  background: rgba(255,253,250,.76);
+  box-shadow: 0 12px 30px rgba(109,77,65,.09);
+  transform: rotate(-4deg);
+}
+.mini-board span {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #faf2ed;
+  color: var(--rose);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 43px;
+  font-weight: 500;
+  line-height: 1;
+}
+.mini-board span:nth-child(2), .mini-board span:nth-child(7) { color: var(--sage); }
+.game-card .photo-sticker { top: 60px; right: -17px; }
+.game-card .photo-caption { padding-top: 24px; }
+.game-card .caption-kicker { color: #a59a80; }
+.game-card .photo-caption p { font-family: 'Cairo', sans-serif; font-size: 17px; font-style: normal; font-weight: 700; }
+.side-quote { font-family: 'Cairo', sans-serif; }
+.side-quote p { font-size: 17px; }
+.tiny-footer { font-family: 'Cairo', sans-serif; letter-spacing: .04em; }
+.page-footer { font-family: 'Cairo', sans-serif; letter-spacing: .06em; }
+
+@media (max-width: 900px) {
+  .photo-card.game-card { padding-top: 25px; }
+  .mini-board { width: 190px; height: 190px; }
+  .mini-board span { font-size: 38px; }
+}
+@media (max-width: 680px) {
+  .brand-name { font-size: 17px; }
+  h1 { font-size: clamp(38px, 10vw, 48px); }
+  .eyebrow { font-size: 9px; }
+  .photo-card.game-card { height: 112px; padding: 4px; }
+  .game-card::after { display: none; }
+  .mini-board { width: 56px; height: 56px; margin: 0; padding: 3px; gap: 2px; border-radius: 8px; position: absolute; top: 7px; right: 19px; }
+  .mini-board span { border-radius: 3px; font-size: 12px; }
+  .game-card .photo-sticker { top: 4px; right: auto; left: -8px; }
+  .game-card .photo-caption { padding: 66px 0 0; }
+  .game-card .caption-kicker { display: none; }
+  .game-card .photo-caption p { font-size: 8px; line-height: 1.05; }
+  .side-quote p { font-size: 17px; }
+}
+@media (max-width: 370px) {
+  .mini-board { right: 14px; }
+}
