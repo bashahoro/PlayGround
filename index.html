@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f4f3ed" />
+  <title>Three in a Row — Tic-Tac-Toe</title>
+  <meta name="description" content="A little friendly rivalry. Play a classic game of tic-tac-toe with a friend or challenge the computer." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Three in a Row home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>little<span class="brand-dot">.</span>games</span>
+      </a>
+      <div class="top-note"><span class="live-dot"></span> THE CLASSIC, REIMAGINED</div>
+      <button class="text-button" id="reset-scores" type="button" title="Reset all scores">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.3 9a6.8 6.8 0 1 1 .8 4.7M3.3 4.7V9h4.3" /></svg>
+        Reset scores
+      </button>
+    </header>
+
+    <main class="game-layout">
+      <section class="intro-panel" aria-labelledby="page-title">
+        <p class="eyebrow"><span class="eyebrow-line"></span> A LITTLE FRIENDLY RIVALRY</p>
+        <h1 id="page-title">Three in<br />a <span>row.</span></h1>
+        <p class="intro-copy">The rules are simple.<br />The rematch is inevitable.</p>
+
+        <div class="mode-picker" role="group" aria-label="Choose game mode">
+          <button type="button" class="mode-button active" data-mode="friends" aria-pressed="true">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="7" cy="7" r="3"/><path d="M1.8 17v-1.4A4.2 4.2 0 0 1 6 11.4h2a4.2 4.2 0 0 1 4.2 4.2V17M13.5 4.2a3 3 0 0 1 0 5.7M15 12a3.5 3.5 0 0 1 3.2 3.5V17"/></svg>
+            2 players
+          </button>
+          <button type="button" class="mode-button" data-mode="computer" aria-pressed="false">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="4" width="14" height="12" rx="3"/><path d="M7 8v.1M13 8v.1M7.5 12h5M10 1.8v2.1M7 18.2h6"/></svg>
+            vs computer
+          </button>
+        </div>
+
+        <div class="scoreboard" aria-label="Match score">
+          <div class="score-heading"><span>MATCH SCORE</span><span class="round-label" id="round-label">ROUND 01</span></div>
+          <div class="score-row">
+            <div class="score-player x-player"><span class="score-symbol">×</span><span class="score-name" id="x-name">Player 1</span></div>
+            <strong class="score-value" id="x-score">0</strong>
+          </div>
+          <div class="score-row">
+            <div class="score-player o-player"><span class="score-symbol">○</span><span class="score-name" id="o-name">Player 2</span></div>
+            <strong class="score-value" id="o-score">0</strong>
+          </div>
+          <div class="score-row draws-row">
+            <div class="score-player"><span class="draw-icon">=</span><span class="score-name">Draws</span></div>
+            <strong class="score-value" id="draw-score">0</strong>
+          </div>
+        </div>
+        <p class="tiny-note"><span>✳</span> Best played with a friend nearby.</p>
+      </section>
+
+      <section class="play-panel" aria-label="Tic-tac-toe game">
+        <div class="play-topline">
+          <div class="game-label"><span class="game-label-icon">✳</span> TIC-TAC-TOE <span class="label-separator">/</span> ROUND <span id="panel-round">01</span></div>
+          <span class="turn-pill" id="turn-pill"><span class="turn-mark x-mark">×</span><span id="turn-label">Player 1's turn</span></span>
+        </div>
+
+        <div class="board-wrap">
+          <div class="board" id="board" role="group" aria-label="Tic-tac-toe board">
+            <button class="cell" type="button" data-cell="0" aria-label="Row 1, column 1, empty"></button>
+            <button class="cell" type="button" data-cell="1" aria-label="Row 1, column 2, empty"></button>
+            <button class="cell" type="button" data-cell="2" aria-label="Row 1, column 3, empty"></button>
+            <button class="cell" type="button" data-cell="3" aria-label="Row 2, column 1, empty"></button>
+            <button class="cell" type="button" data-cell="4" aria-label="Row 2, column 2, empty"></button>
+            <button class="cell" type="button" data-cell="5" aria-label="Row 2, column 3, empty"></button>
+            <button class="cell" type="button" data-cell="6" aria-label="Row 3, column 1, empty"></button>
+            <button class="cell" type="button" data-cell="7" aria-label="Row 3, column 2, empty"></button>
+            <button class="cell" type="button" data-cell="8" aria-label="Row 3, column 3, empty"></button>
+          </div>
+        </div>
+
+        <div class="play-bottomline">
+          <p class="game-hint" id="game-hint"><span class="hint-sparkle">✦</span> Three of your marks. That's the whole plan.</p>
+          <button class="next-button" id="new-game" type="button"><span>New round</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" /></svg></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><span>NO TIMER. NO PRESSURE.</span><span>JUST ONE MORE ROUND <b>↗</b></span></footer>
+  </div>
+</body>
+</html>
