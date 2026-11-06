@@ -1,0 +1,28 @@
+{
+  "id": "./",
+  "name": "روح هورو — لعبة X-O",
+  "short_name": "روح هورو",
+  "description": "لعبة X-O عربية. العب مع صديق أو تحدَّ الكمبيوتر.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf6f1",
+  "theme_color": "#fbf6f1",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
