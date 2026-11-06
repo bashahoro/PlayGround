@@ -21,7 +21,7 @@
 <body>
   <div class="page-shell">
     <header class="topbar">
-      <a class="brand" href="#" aria-label="روح هورو — الصفحة الرئيسية">
+      <a class="brand" href="./" aria-label="روح هورو — الصفحة الرئيسية">
         <span class="brand-mark" aria-hidden="true"><span>×</span><i>○</i></span>
         <span class="brand-name">روح هورو<span>.</span></span>
       </a>
@@ -62,22 +62,22 @@
         </div>
 
         <div class="board-wrap">
-          <div class="board" id="board" role="grid" aria-label="لوحة لعبة X-O">
-            <button class="cell" type="button" role="gridcell" data-index="0" aria-label="أعلى اليمين، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="1" aria-label="أعلى الوسط، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="2" aria-label="أعلى اليسار، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="3" aria-label="الوسط يمين، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="4" aria-label="الوسط، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="5" aria-label="الوسط يسار، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="6" aria-label="أسفل اليمين، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="7" aria-label="أسفل الوسط، فارغة"></button>
-            <button class="cell" type="button" role="gridcell" data-index="8" aria-label="أسفل اليسار، فارغة"></button>
+          <div class="board" id="board" role="group" aria-label="لوحة لعبة X-O">
+            <button class="cell" type="button" data-index="0" aria-label="أعلى اليمين، فارغة"></button>
+            <button class="cell" type="button" data-index="1" aria-label="أعلى الوسط، فارغة"></button>
+            <button class="cell" type="button" data-index="2" aria-label="أعلى اليسار، فارغة"></button>
+            <button class="cell" type="button" data-index="3" aria-label="الوسط يمين، فارغة"></button>
+            <button class="cell" type="button" data-index="4" aria-label="الوسط، فارغة"></button>
+            <button class="cell" type="button" data-index="5" aria-label="الوسط يسار، فارغة"></button>
+            <button class="cell" type="button" data-index="6" aria-label="أسفل اليمين، فارغة"></button>
+            <button class="cell" type="button" data-index="7" aria-label="أسفل الوسط، فارغة"></button>
+            <button class="cell" type="button" data-index="8" aria-label="أسفل اليسار، فارغة"></button>
           </div>
         </div>
 
         <div class="scoreboard" aria-label="النتائج">
           <div class="score-item score-x"><span class="score-symbol">×</span><span class="score-label" id="x-name">اللاعب X</span><strong id="x-score">0</strong></div>
-          <div class="score-divider"><span>—</span><small id="draw-score">تعادلان 0</small><span>—</span></div>
+          <div class="score-divider"><span>—</span><small id="draw-score">تعادل 0</small><span>—</span></div>
           <div class="score-item score-o"><span class="score-symbol">○</span><span class="score-label" id="o-name">اللاعب O</span><strong id="o-score">0</strong></div>
         </div>
 
