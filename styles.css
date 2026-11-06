@@ -28,6 +28,11 @@ body {
 button { font: inherit; }
 .page-shell { width: min(1120px, calc(100% - 72px)); margin: 0 auto; }
 .topbar { height: 80px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(213, 194, 182, .55); }
+.top-actions { display: flex; align-items: center; gap: 9px; }
+.install-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 38px; padding: 0 11px; border: 1px solid var(--line); border-radius: 20px; color: var(--rose-dark); background: rgba(255,253,250,.76); font-size: 11px; font-weight: 700; cursor: pointer; transition: .2s ease; }
+.install-button:hover { border-color: #d4b8aa; background: var(--white); transform: translateY(-1px); }
+.install-button svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.install-button:focus-visible { outline: 3px solid rgba(207, 98, 93, .38); outline-offset: 3px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; }
 .brand-mark { width: 34px; height: 34px; border-radius: 12px; background: var(--rose); color: white; display: grid; place-items: center; position: relative; font-size: 24px; font-weight: 500; line-height: 1; transform: rotate(-5deg); box-shadow: 0 5px 12px rgba(193, 81, 76, .2); }
 .brand-mark > span { transform: translate(-2px, -1px); }

@@ -10,6 +10,7 @@
   const xName = document.getElementById('x-name');
   const oName = document.getElementById('o-name');
   const soundToggle = document.getElementById('sound-toggle');
+  const installButton = document.getElementById('install-app');
   const positionNames = ['أعلى اليمين', 'أعلى الوسط', 'أعلى اليسار', 'الوسط يمين', 'الوسط', 'الوسط يسار', 'أسفل اليمين', 'أسفل الوسط', 'أسفل اليسار'];
   const wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
   let board = Array(9).fill('');
@@ -209,6 +210,39 @@
     soundToggle.setAttribute('aria-label', soundEnabled ? 'إيقاف الصوت' : 'تشغيل الصوت');
     if (soundEnabled) playSound('move');
   });
+
+  let installPrompt = null;
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if (isStandalone) installButton.hidden = true;
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    installPrompt = event;
+  });
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null;
+    installButton.hidden = true;
+  });
+  installButton.addEventListener('click', async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      return;
+    }
+    const isAppleMobile = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    const instruction = isAppleMobile
+      ? 'لتثبيت اللعبة: اضغط زر المشاركة في Safari، ثم اختر «إضافة إلى الشاشة الرئيسية».'
+      : 'لتثبيت اللعبة: افتح قائمة المتصفح ⋮ ثم اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».';
+    window.alert(instruction);
+  });
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').catch(() => {
+        /* The game remains playable if offline installation is unavailable. */
+      });
+    });
+  }
 
   updatePlayerNames();
   renderScores();
