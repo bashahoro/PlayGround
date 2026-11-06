@@ -16,6 +16,7 @@
   let current = 'X';
   let gameOver = false;
   let thinking = false;
+  let computerTimer = null;
   let mode = 'friends';
   let round = 1;
   let scores = { X: 0, O: 0, draws: 0 };
@@ -110,34 +111,57 @@
     if (mode === 'computer' && current === 'O') {
       thinking = true;
       render();
-      const move = bestComputerMove();
-      thinking = false;
-      if (move !== -1) play(move, true);
+      computerTimer = window.setTimeout(() => {
+        computerTimer = null;
+        thinking = false;
+        const move = bestComputerMove();
+        if (move !== -1) play(move, true);
+      }, 420);
     }
   }
 
-  function winningMove(mark) {
-    for (let index = 0; index < board.length; index++) {
-      if (board[index]) continue;
-      board[index] = mark;
-      const wins = Boolean(getWinner(board));
-      board[index] = '';
-      if (wins) return index;
+  function minimax(position, maximizing, depth) {
+    const winner = getWinner(position);
+    if (winner) return winner.mark === 'O' ? 10 - depth : depth - 10;
+    if (position.every(Boolean)) return 0;
+
+    let best = maximizing ? -Infinity : Infinity;
+    for (let index = 0; index < position.length; index++) {
+      if (position[index]) continue;
+      position[index] = maximizing ? 'O' : 'X';
+      const score = minimax(position, !maximizing, depth + 1);
+      position[index] = '';
+      best = maximizing ? Math.max(best, score) : Math.min(best, score);
     }
-    return -1;
+    return best;
   }
 
   function bestComputerMove() {
-    // Take a win when possible, block an immediate threat, then favor the center and corners.
-    const winning = winningMove('O');
-    if (winning !== -1) return winning;
-    const blocking = winningMove('X');
-    if (blocking !== -1) return blocking;
-    const preferred = [4, 0, 2, 6, 8, 1, 3, 5, 7].filter(index => !board[index]);
-    return preferred.length ? preferred[0] : -1;
+    // Search every possible reply so the computer takes wins, blocks threats, and never misses a draw.
+    let bestScore = -Infinity;
+    let bestMoves = [];
+    const preferred = [4, 0, 2, 6, 8, 1, 3, 5, 7];
+
+    for (const index of preferred) {
+      if (board[index]) continue;
+      board[index] = 'O';
+      const score = minimax(board, false, 0);
+      board[index] = '';
+      if (score > bestScore) {
+        bestScore = score;
+        bestMoves = [index];
+      } else if (score === bestScore) {
+        bestMoves.push(index);
+      }
+    }
+    return bestMoves.length ? bestMoves[Math.floor(Math.random() * bestMoves.length)] : -1;
   }
 
   function newRound(increment = true) {
+    if (computerTimer !== null) {
+      window.clearTimeout(computerTimer);
+      computerTimer = null;
+    }
     if (increment) round++;
     board = Array(9).fill('');
     gameOver = false;
@@ -163,7 +187,6 @@
 
   document.getElementById('reset-scores').addEventListener('click', () => {
     scores = { X: 0, O: 0, draws: 0 };
-    round = 1;
     saveScores();
     updateScoreboard();
   });
